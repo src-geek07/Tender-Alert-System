@@ -30,3 +30,11 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python main.py
+
+      - name: Save seen tenders
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add seen_tenders.json
+          git diff --staged --quiet || git commit -m "Update seen tenders"
+          git push
